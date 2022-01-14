@@ -36,10 +36,9 @@ optional arguments:
 ```
 
 
-## 🎲 - compile :
+## 🎲 - write client file :
 ```cs
  - Keyllogs.py -A create -H YOURIP -P YOURPORT
- - setup.py
 ```
 #
 
